@@ -14,11 +14,11 @@ user_repository = UserRepository()
 item_repository = ItemRepository()
 
 # Instâncias dos services
-user_service = UserService(user_repository)
-item_service = ItemService(item_repository)
+user_service = UserService(repository=user_repository)
+item_service = ItemService(repository=item_repository)
 # Instâncias dos controladores
-user_controller = UserController(repository=user_repository)
-items_controller = ItemsController(repository=item_repository)
+user_controller = UserController(service=user_service)
+items_controller = ItemsController(service=item_service)
 
 # Incluindo as rotas dos controladores
 app.include_router(user_controller.router)
@@ -31,4 +31,4 @@ async def root():
 
 # Início do servidor
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
